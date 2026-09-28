@@ -2,7 +2,6 @@ const registerForm = document.getElementById("registerForm");
 
 if (registerForm) {
     registerForm.addEventListener("submit", function(event) {
-
         const fullname = document.getElementById("fullname").value.trim();
         const email = document.getElementById("email").value.trim();
         const phone = document.getElementById("phone").value.trim();
@@ -10,41 +9,14 @@ if (registerForm) {
         const confirmPassword = document.getElementById("confirm-password").value;
         const terms = document.getElementById("terms").checked;
 
-        if (fullname === "") {
-            alert("Please enter your full name.");
-            event.preventDefault();
-            return;
-        }
+        event.preventDefault();
 
-        if (!email.includes("@") || !email.includes(".")) {
-            alert("Please enter a valid email address.");
-            event.preventDefault();
-            return;
-        }
-
-        if (!/^[0-9]{10}$/.test(phone)) {
-            alert("Please enter a valid 10-digit phone number.");
-            event.preventDefault();
-            return;
-        }
-
-        if (password.length < 6) {
-            alert("Password must contain at least 6 characters.");
-            event.preventDefault();
-            return;
-        }
-
-        if (password !== confirmPassword) {
-            alert("Password and Confirm Password do not match.");
-            event.preventDefault();
-            return;
-        }
-
-        if (!terms) {
-            alert("Please agree to the terms and conditions.");
-            event.preventDefault();
-            return;
-        }
+        if (fullname === "") return alert("Please enter your full name.");
+        if (!email.includes("@") || !email.includes(".")) return alert("Please enter a valid email address.");
+        if (!/^[0-9]{10}$/.test(phone)) return alert("Please enter a valid 10-digit phone number.");
+        if (password.length < 6) return alert("Password must contain at least 6 characters.");
+        if (password !== confirmPassword) return alert("Password and Confirm Password do not match.");
+        if (!terms) return alert("Please agree to the terms and conditions.");
 
         alert("Registration successful!");
     });
@@ -54,33 +26,15 @@ const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
     loginForm.addEventListener("submit", function(event) {
-
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value;
 
-        if (email === "") {
-            alert("Please enter your email address.");
-            event.preventDefault();
-            return;
-        }
+        event.preventDefault();
 
-        if (!email.includes("@") || !email.includes(".")) {
-            alert("Please enter a valid email address.");
-            event.preventDefault();
-            return;
-        }
-
-        if (password === "") {
-            alert("Please enter your password.");
-            event.preventDefault();
-            return;
-        }
-
-        if (password.length < 6) {
-            alert("Password must contain at least 6 characters.");
-            event.preventDefault();
-            return;
-        }
+        if (email === "") return alert("Please enter your email address.");
+        if (!email.includes("@") || !email.includes(".")) return alert("Please enter a valid email address.");
+        if (password === "") return alert("Please enter your password.");
+        if (password.length < 6) return alert("Password must contain at least 6 characters.");
 
         alert("Login successful!");
     });

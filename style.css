@@ -73,6 +73,42 @@ header {
     background-repeat: no-repeat;
 }
 
+.hero-slider-shell {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background-image: none;
+}
+
+.hero-slider {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: #123b5d;
+}
+
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background-position: center;
+    background-size: cover;
+    transform: scale(1.08);
+    transition: opacity 850ms ease, transform 6s ease;
+}
+
+.hero-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(8, 39, 61, 0.64), rgba(8, 39, 61, 0.16));
+}
+
+.hero-slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
 .hero-content {
     background: rgba(255, 255, 255, 0.88);
     width: 500px;
@@ -83,6 +119,8 @@ header {
     box-shadow: 0 10px 30px rgba(18, 59, 93, 0.15);
     backdrop-filter: blur(4px);
     text-align: left;
+    position: relative;
+    z-index: 1;
 }
 
 .hero-small {
@@ -126,6 +164,68 @@ header {
 .hero-button:hover {
     background-color: #123b5d;
     transform: translateY(-2px);
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255, 255, 255, .7);
+    border-radius: 50%;
+    color: white;
+    background: rgba(18, 59, 93, .45);
+    cursor: pointer;
+    font-size: 32px;
+    line-height: 36px;
+    transition: background-color .25s ease, transform .25s ease;
+}
+
+.slider-arrow:hover {
+    background: #2e8b57;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.slider-prev { left: 2.5%; }
+.slider-next { right: 2.5%; }
+
+.slider-dots {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    z-index: 2;
+    display: flex;
+    gap: 9px;
+    transform: translateX(-50%);
+}
+
+.slider-dots button {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .65);
+    cursor: pointer;
+    transition: width .25s ease, background-color .25s ease;
+}
+
+.slider-dots button.active {
+    width: 28px;
+    border-radius: 10px;
+    background: #2e8b57;
+}
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .services {
@@ -1114,5 +1214,730 @@ footer {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+    }
+}
+
+.service-detail {
+    width: 90%;
+    max-width: 1000px;
+    margin: 70px auto;
+}
+
+.service-detail-content {
+    background-color: white;
+    padding: 50px;
+    border-radius: 18px;
+    border: 1px solid #dce9e6;
+    box-shadow: 0 10px 30px rgba(18, 59, 93, 0.1);
+    text-align: center;
+}
+
+.service-detail-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    border-radius: 16px;
+    background-color: #e8f4fc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-detail-icon span {
+    font-size: 35px;
+}
+
+.service-detail-content h2 {
+    color: #123b5d;
+    font-size: 34px;
+    margin-bottom: 15px;
+}
+
+.service-detail-content > p {
+    color: #607d8b;
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 650px;
+    margin: 0 auto 35px;
+}
+
+.service-detail-content h3 {
+    color: #123b5d;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.service-detail-content ul {
+    max-width: 500px;
+    margin: 0 auto 35px;
+    padding: 0;
+    list-style: none;
+}
+
+.service-detail-content li {
+    background-color: #f4f9f7;
+    color: #607d8b;
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.service-detail-button {
+    display: inline-block;
+    background-color: #2e8b57;
+    color: white;
+    text-decoration: none;
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.service-detail-button:hover {
+    background-color: #123b5d;
+    transform: translateY(-3px);
+}
+
+.plumbing-options {
+    max-width: 500px;
+    margin: 0 auto 35px;
+    padding: 0;
+    list-style: none;
+}
+
+.plumbing-options li {
+    margin-bottom: 10px;
+}
+
+.plumbing-option {
+    width: 100%;
+    border: none;
+    background-color: #f4f9f7;
+    color: #607d8b;
+    padding: 13px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.plumbing-option:hover {
+    background-color: #e9f7ef;
+    color: #2e8b57;
+    transform: translateY(-2px);
+}
+
+.plumbing-option.selected {
+    background-color: #2e8b57;
+    color: white;
+}
+
+.booking-section {
+    width: 90%;
+    max-width: 700px;
+    margin: 20px auto 70px;
+}
+
+.booking-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 18px;
+    border: 1px solid #dce9e6;
+    box-shadow: 0 10px 30px rgba(18, 59, 93, 0.1);
+}
+
+.booking-content h2 {
+    color: #123b5d;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.booking-content > p {
+    color: #607d8b;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#plumbingBookingForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#plumbingBookingForm label {
+    color: #123b5d;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+#plumbingBookingForm input,
+#plumbingBookingForm select,
+#plumbingBookingForm textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px;
+    border: 1px solid #cfded9;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    outline: none;
+}
+
+#plumbingBookingForm input:focus,
+#plumbingBookingForm select:focus,
+#plumbingBookingForm textarea:focus {
+    border-color: #2e8b57;
+}
+
+#plumbingBookingForm textarea {
+    resize: vertical;
+}
+
+#plumbingBookingForm .service-detail-button {
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+#booking-message {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    color: #2e8b57;
+    background-color: #e9f7ef;
+    display: none;
+}
+
+.plumbing-hero {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, #edf8f5, #f7fbff);
+    border-bottom: 1px solid #dce9e6;
+}
+
+.plumbing-hero-content {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.hero-label {
+    color: #2e8b57;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.plumbing-hero h2 {
+    color: #123b5d;
+    font-size: 42px;
+    margin: 12px 0;
+}
+
+.plumbing-hero p {
+    color: #607d8b;
+    font-size: 17px;
+    max-width: 650px;
+}
+
+.plumbers-section {
+    width: 90%;
+    max-width: 1250px;
+    margin: 60px auto;
+}
+
+.plumbers-heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.plumbers-heading h2 {
+    color: #123b5d;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.plumbers-heading p {
+    color: #607d8b;
+}
+
+.plumbers-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 350px;
+    gap: 30px;
+    align-items: start;
+}
+
+.plumber-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.plumber-card {
+    background-color: white;
+    border: 1px solid #dce9e6;
+    border-radius: 15px;
+    padding: 18px;
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 6px 20px rgba(18, 59, 93, 0.08);
+    transition: 0.3s ease;
+}
+
+.plumber-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(18, 59, 93, 0.13);
+}
+
+.plumber-photo {
+    width: 165px;
+    min-width: 165px;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #edf4f2;
+}
+
+.plumber-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.plumber-info {
+    flex: 1;
+}
+
+.plumber-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.plumber-name h3 {
+    color: #123b5d;
+    font-size: 22px;
+}
+
+.verified {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #2e8b57;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.experience {
+    color: #607d8b;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 8px 0;
+}
+
+.rating span {
+    color: #ffad00;
+    font-size: 21px;
+}
+
+.rating strong {
+    color: #123b5d;
+    font-size: 17px;
+}
+
+.review-link {
+    border: none;
+    background: none;
+    color: #2e8b57;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 0;
+}
+
+.review-link:hover {
+    text-decoration: underline;
+}
+
+.plumber-review {
+    color: #607d8b;
+    font-size: 14px;
+    font-style: italic;
+    margin: 10px 0;
+    max-width: 600px;
+}
+
+.services-label {
+    color: #123b5d;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 8px;
+}
+
+.service-tags span {
+    background-color: #edf7f3;
+    color: #2e8b57;
+    border: 1px solid #d5ebe0;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.plumber-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.book-plumber,
+.view-reviews {
+    padding: 10px 17px;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.book-plumber {
+    background-color: #2e8b57;
+    color: white;
+    border: 1px solid #2e8b57;
+}
+
+.book-plumber:hover {
+    background-color: #123b5d;
+    border-color: #123b5d;
+}
+
+.view-reviews {
+    background-color: white;
+    color: #2e8b57;
+    border: 1px solid #2e8b57;
+}
+
+.view-reviews:hover {
+    background-color: #edf8f2;
+}
+
+.reviews-box {
+    display: none;
+    background-color: #f6faf8;
+    border-left: 3px solid #2e8b57;
+    padding: 12px 15px;
+    margin-top: 15px;
+    border-radius: 7px;
+}
+
+.reviews-box.show {
+    display: block;
+}
+
+.reviews-box p {
+    color: #607d8b;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.reviews-box p:last-child {
+    margin-bottom: 0;
+}
+
+.booking-section {
+    position: sticky;
+    top: 95px;
+    width: 100%;
+    margin: 0;
+}
+
+.booking-content {
+    background: linear-gradient(145deg, #f2faf7, #ffffff);
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid #cfe5dc;
+    box-shadow: 0 10px 30px rgba(18, 59, 93, 0.1);
+}
+
+.booking-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background-color: #e4f5ec;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    margin-bottom: 12px;
+}
+
+.booking-content h2 {
+    color: #123b5d;
+    font-size: 25px;
+    margin-bottom: 7px;
+}
+
+.booking-content > p {
+    color: #607d8b;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.selected-plumber {
+    background-color: white;
+    border: 1px solid #d5e6df;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 18px;
+}
+
+.selected-placeholder {
+    color: #80949d;
+    font-size: 13px;
+}
+
+.selected-person {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.selected-person-photo {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.selected-person h4 {
+    color: #123b5d;
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.selected-person p {
+    color: #607d8b;
+    font-size: 12px;
+}
+
+.selected-person-rating {
+    color: #ffad00;
+}
+
+#plumbingBookingForm {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+#plumbingBookingForm label {
+    color: #123b5d;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+#plumbingBookingForm input,
+#plumbingBookingForm select,
+#plumbingBookingForm textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px;
+    border: 1px solid #cfded9;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    outline: none;
+    background-color: white;
+}
+
+#plumbingBookingForm input:focus,
+#plumbingBookingForm select:focus,
+#plumbingBookingForm textarea:focus {
+    border-color: #2e8b57;
+}
+
+#plumbingBookingForm textarea {
+    resize: vertical;
+}
+
+.confirm-booking {
+    border: none;
+    background-color: #2e8b57;
+    color: white;
+    padding: 13px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s ease;
+}
+
+.confirm-booking:hover {
+    background-color: #123b5d;
+    transform: translateY(-2px);
+}
+
+#booking-message {
+    display: none;
+    margin-top: 18px;
+    padding: 13px;
+    border-radius: 8px;
+    color: #2e8b57;
+    background-color: #e8f7ee;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.customer-reviews {
+    width: 90%;
+    max-width: 1200px;
+    margin: 70px auto;
+}
+
+.reviews-heading {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.reviews-heading h2 {
+    color: #123b5d;
+    font-size: 28px;
+    margin-bottom: 7px;
+}
+
+.reviews-heading p {
+    color: #607d8b;
+}
+
+.customer-review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.customer-review-card {
+    background-color: white;
+    border: 1px solid #dce9e6;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 5px 18px rgba(18, 59, 93, 0.07);
+}
+
+.customer-rating {
+    color: #ffad00;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.customer-review-card p {
+    color: #607d8b;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.customer-review-card strong {
+    color: #123b5d;
+    font-size: 13px;
+}
+
+.footer-content {
+    background-color: #123b5d;
+    color: white;
+    padding: 30px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.footer-content h3 {
+    margin-bottom: 5px;
+}
+
+.footer-content p {
+    color: #dce9f0;
+    font-size: 13px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    color: #70c997;
+}
+
+@media (max-width: 1000px) {
+    .plumbers-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-section {
+        position: static;
+    }
+
+    .customer-review-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .plumbing-hero h2 {
+        font-size: 30px;
+    }
+
+    .plumber-card {
+        flex-direction: column;
+    }
+
+    .plumber-photo {
+        width: 100%;
+        height: 250px;
+    }
+
+    .plumber-actions {
+        flex-direction: column;
+    }
+
+    .book-plumber,
+    .view-reviews {
+        width: 100%;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
