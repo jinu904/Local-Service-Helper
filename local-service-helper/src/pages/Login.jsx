@@ -2,17 +2,22 @@ import { useEffect, useState } from "react";
 import { Link, navigate } from "../router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { login } from "../api";
+import { useAuth } from "../auth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  const { signIn } = useAuth();
 
   useEffect(() => {
-    document.title = "Login - Local Service Helper";
+    document.title = "Login - Fixnear";
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (email.trim() === "") {
@@ -32,8 +37,12 @@ export default function Login() {
       return;
     }
 
-    alert("Login successful!");
-    navigate("/");
+    setBusy(true); setError("");
+    try {
+      const result = await login(email, password);
+      signIn(result.user, result.token);
+      navigate(result.user.role === "admin" ? "/admin" : "/dashboard");
+    } catch (err) { setError(err.message); } finally { setBusy(false); }
   };
 
   return (
@@ -44,7 +53,7 @@ export default function Login() {
           <div className="login-card">
             <div className="login-header">
               <h2>Welcome Back</h2>
-              <p>Login to Local Service Helper</p>
+              <p>Login to Fixnear</p>
             </div>
 
             <form onSubmit={handleSubmit}>
@@ -90,7 +99,8 @@ export default function Login() {
                 </a>
               </div>
 
-              <button type="submit">Login</button>
+              {error && <p className="form-error">{error}</p>}
+              <button type="submit" disabled={busy}>{busy ? "Logging in..." : "Login"}</button>
             </form>
 
             <div className="login-register">

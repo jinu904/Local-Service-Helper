@@ -1,0 +1,30 @@
+{
+  "modelType": "Logistic Regression",
+  "modelVersion": "1.0",
+  "trainedAt": "2026-11-01T08:25:11.650Z",
+  "featureNames": [
+    "normalised_rating",
+    "review_confidence",
+    "normalised_experience"
+  ],
+  "trainingRecords": 116,
+  "positiveClass": "trusted provider",
+  "labelRule": "rating >= 4.7 and review count >= dataset median",
+  "means": [
+    0.9365517241379311,
+    0.8436100014802564,
+    0.5183908045977011
+  ],
+  "scales": [
+    0.09158662235053258,
+    0.14255116840861512,
+    0.2204290846766445
+  ],
+  "weights": [
+    -1.3074121405491306,
+    1.0152819562798314,
+    3.6910785739589578,
+    -1.5785662380307877
+  ],
+  "validationAccuracy": 0.708
+}

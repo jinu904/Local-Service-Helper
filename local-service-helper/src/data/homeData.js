@@ -82,7 +82,7 @@ export const howItWorks = [
 export const aboutHighlights = [
   {
     title: "Verified Professionals",
-    description: "Every professional on Local Service Helper is vetted and rated by real customers.",
+    description: "Every professional on Fixnear is vetted and rated by real customers.",
   },
   {
     title: "Fast Response",
@@ -93,3 +93,4 @@ export const aboutHighlights = [
     description: "Transparent pricing with no hidden fees, so you always know what to expect.",
   },
 ];
+

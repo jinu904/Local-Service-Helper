@@ -5,7 +5,7 @@ export const services = {
   plumbing: {
     slug: "plumbing",
     serviceFieldLabel: "Plumbing service",
-    pageTitle: "Plumbing Services - Local Service Helper",
+    pageTitle: "Plumbing Services - Fixnear",
     icon: "plumbing",
     heroLabel: "PLUMBING SERVICES",
     heroTitle: "Reliable Plumbers for Your Home",
@@ -72,6 +72,21 @@ export const services = {
           { rating: "4.7", text: "Solved our drain problem perfectly.", author: "Kavita R." },
         ],
       },
+      {
+        id: "naveen",
+        name: "Naveen Desai",
+        img: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=500&q=85",
+        experience: "7 Years Experience",
+        rating: "4.8",
+        reviewsCount: "119 reviews",
+        quote: "Careful troubleshooting with clear advice before starting the repair.",
+        specialties: ["Water Tank Services", "Drain Cleaning", "Tap Repair", "Bathroom Plumbing"],
+        reviews: [
+          { rating: "4.9", text: "Solved our water-pressure issue quickly.", author: "Sonal P." },
+          { rating: "4.8", text: "Neat work and explained the repair well.", author: "Vivek R." },
+          { rating: "4.7", text: "Arrived on time and finished without any mess.", author: "Kriti M." },
+        ],
+      },
     ],
     customerReviews: [
       { rating: "5.0", text: "Rajesh fixed our leak in no time and explained everything clearly.", author: "Priya S." },
@@ -83,7 +98,7 @@ export const services = {
   electrical: {
     slug: "electrical",
     serviceFieldLabel: "Electrical service",
-    pageTitle: "Electrical Services - Local Service Helper",
+    pageTitle: "Electrical Services - Fixnear",
     icon: "electrical",
     heroLabel: "ELECTRICAL SERVICES",
     heroTitle: "Reliable Electricians for Your Home",
@@ -151,6 +166,21 @@ export const services = {
           { rating: "4.7", text: "Excellent troubleshooting.", author: "Kavita R." },
         ],
       },
+      {
+        id: "harish",
+        name: "Harish Mehta",
+        img: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=500&q=85",
+        experience: "8 Years Experience",
+        rating: "4.8",
+        reviewsCount: "126 reviews",
+        quote: "Safety-first electrical work for homes and small offices.",
+        specialties: ["Power Faults", "Socket Repair", "Lighting", "Inverter Setup"],
+        reviews: [
+          { rating: "4.9", text: "Found the power fault quickly and fixed it safely.", author: "Divya K." },
+          { rating: "4.8", text: "Very tidy work on our new light fittings.", author: "Nilesh P." },
+          { rating: "4.7", text: "Good communication and fair pricing.", author: "Anjali S." },
+        ],
+      },
     ],
     customerReviews: [
       { rating: "5.0", text: "Vikram repaired our wiring safely and quickly.", author: "Priya S." },
@@ -162,7 +192,7 @@ export const services = {
   cleaning: {
     slug: "cleaning",
     serviceFieldLabel: "Cleaning service",
-    pageTitle: "Home Cleaning - Local Service Helper",
+    pageTitle: "Home Cleaning - Fixnear",
     icon: "cleaning",
     heroLabel: "HOME CLEANING",
     heroTitle: "Professional Cleaning for a Fresher Home",
@@ -230,6 +260,21 @@ export const services = {
           { rating: "4.6", text: "Very reliable.", author: "Kavita R." },
         ],
       },
+      {
+        id: "meena",
+        name: "Meena Iyer",
+        img: "https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=500&q=85",
+        experience: "7 Years Experience",
+        rating: "4.9",
+        reviewsCount: "124 reviews",
+        quote: "Detail-oriented cleaning for kitchens, bathrooms and move-in homes.",
+        specialties: ["Kitchen Cleaning", "Bathroom Cleaning", "Move-in Cleaning", "Window Cleaning"],
+        reviews: [
+          { rating: "5.0", text: "Our kitchen and bathrooms were spotless.", author: "Riya P." },
+          { rating: "4.9", text: "Very organised and respectful of our home.", author: "Mihir D." },
+          { rating: "4.8", text: "Excellent deep-cleaning service.", author: "Ayesha N." },
+        ],
+      },
     ],
     customerReviews: [
       { rating: "5.0", text: "Pooja did an amazing job with our deep cleaning.", author: "Priya S." },
@@ -241,7 +286,7 @@ export const services = {
   carpentry: {
     slug: "carpentry",
     serviceFieldLabel: "Carpentry service",
-    pageTitle: "Carpentry Services - Local Service Helper",
+    pageTitle: "Carpentry Services - Fixnear",
     icon: "carpentry",
     heroLabel: "CARPENTRY SERVICES",
     heroTitle: "Skilled Carpenters for Your Home",
@@ -309,6 +354,21 @@ export const services = {
           { rating: "4.7", text: "Excellent work.", author: "Kavita R." },
         ],
       },
+      {
+        id: "pranav",
+        name: "Pranav Joshi",
+        img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=500&q=85",
+        experience: "9 Years Experience",
+        rating: "4.8",
+        reviewsCount: "132 reviews",
+        quote: "Practical carpentry solutions with a focus on strong, clean finishes.",
+        specialties: ["Wardrobe Repair", "Furniture Assembly", "Cabinet Repair", "Door Installation"],
+        reviews: [
+          { rating: "4.9", text: "Repaired our wardrobe doors perfectly.", author: "Nisha B." },
+          { rating: "4.8", text: "Careful work and a very clean finish.", author: "Kunal V." },
+          { rating: "4.7", text: "Assembled our furniture quickly and neatly.", author: "Rhea S." },
+        ],
+      },
     ],
     customerReviews: [
       { rating: "5.0", text: "Arjun did excellent furniture work for our home.", author: "Priya S." },
@@ -320,7 +380,7 @@ export const services = {
   "appliance-repair": {
     slug: "appliance-repair",
     serviceFieldLabel: "Appliance service",
-    pageTitle: "Appliance Repair - Local Service Helper",
+    pageTitle: "Appliance Repair - Fixnear",
     icon: "repair",
     heroLabel: "APPLIANCE REPAIR",
     heroTitle: "Expert Repairs for Your Home Appliances",
@@ -382,6 +442,21 @@ export const services = {
           { rating: "4.8", text: "Highly experienced and professional.", author: "Neha T." },
         ],
       },
+      {
+        id: "farhan",
+        name: "Farhan Ali",
+        img: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=500&q=85",
+        experience: "8 Years Experience",
+        rating: "4.7",
+        reviewsCount: "111 reviews",
+        quote: "Reliable diagnostics and repairs for everyday home appliances.",
+        specialties: ["Air Conditioner Repair", "Geysers", "Water Purifiers", "Microwaves"],
+        reviews: [
+          { rating: "4.8", text: "Fixed our geyser in one visit.", author: "Suresh T." },
+          { rating: "4.7", text: "Diagnosed the microwave issue accurately.", author: "Jinal P." },
+          { rating: "4.7", text: "Professional visit and clear estimate.", author: "Nitin R." },
+        ],
+      },
     ],
     customerReviews: null,
   },
@@ -389,7 +464,7 @@ export const services = {
   painting: {
     slug: "painting",
     serviceFieldLabel: "Painting service",
-    pageTitle: "Painting Services - Local Service Helper",
+    pageTitle: "Painting Services - Fixnear",
     icon: "painting",
     heroLabel: "PAINTING SERVICES",
     heroTitle: "Fresh, Professional Painting for Every Space",
@@ -451,6 +526,21 @@ export const services = {
           { rating: "4.8", text: "Very experienced, neat and dependable.", author: "Arjun P." },
         ],
       },
+      {
+        id: "sanjay",
+        name: "Sanjay Verma",
+        img: "https://images.unsplash.com/photo-1562259949-a4ebf6a0d348?auto=format&fit=crop&w=500&q=85",
+        experience: "9 Years Experience",
+        rating: "4.8",
+        reviewsCount: "140 reviews",
+        quote: "Neat preparation and long-lasting finishes for homes and offices.",
+        specialties: ["Interior Painting", "Exterior Painting", "Waterproofing", "Ceiling Work"],
+        reviews: [
+          { rating: "4.9", text: "The paint finish was smooth and even throughout.", author: "Hetal S." },
+          { rating: "4.8", text: "Great preparation and no paint splashes left behind.", author: "Abhishek K." },
+          { rating: "4.7", text: "Completed our exterior work on schedule.", author: "Pooja R." },
+        ],
+      },
     ],
     customerReviews: null,
   },
@@ -465,3 +555,4 @@ export const FALLBACK_IMAGE =
   encodeURIComponent(
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 185"><rect width="160" height="185" fill="#edf4f2"/><circle cx="80" cy="70" r="30" fill="#b8d8c7"/><path d="M20 185c0-40 25-62 60-62s60 22 60 62z" fill="#b8d8c7"/></svg>'
   );
+

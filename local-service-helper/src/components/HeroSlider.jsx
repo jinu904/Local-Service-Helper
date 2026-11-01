@@ -48,12 +48,11 @@ export default function HeroSlider() {
       </div>
 
       <div className="hero-content">
-        <p className="hero-small">{slide.label}</p>
+        <p className="hero-small"><span>●</span> {slide.label}</p>
         <h2>{slide.title}</h2>
         <p>{slide.description}</p>
-        <Link to="/#services" className="hero-button">
-          Explore Services
-        </Link>
+        <div className="hero-actions"><Link to="/#services" className="hero-button">Find a service <span>→</span></Link><Link to="/register" className="hero-secondary">Join as a provider</Link></div>
+        <div className="hero-trust"><span><b>24+</b> local experts</span><span><b>4.8★</b> average rating</span><span><b>6</b> home services</span></div>
       </div>
 
       <button

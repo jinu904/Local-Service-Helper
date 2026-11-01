@@ -2,20 +2,25 @@ import { useEffect, useState } from "react";
 import { Link, navigate } from "../router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { register } from "../api";
+import { useAuth } from "../auth";
 
-const emptyForm = { fullname: "", email: "", phone: "", password: "", confirmPassword: "" };
+const emptyForm = { fullname: "", email: "", phone: "", password: "", confirmPassword: "", role: "customer" };
 
 export default function Register() {
   const [form, setForm] = useState(emptyForm);
   const [terms, setTerms] = useState(false);
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  const { signIn } = useAuth();
 
   useEffect(() => {
-    document.title = "Register - Local Service Helper";
+    document.title = "Register - Fixnear";
   }, []);
 
   const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (form.fullname.trim() === "") {
@@ -43,8 +48,12 @@ export default function Register() {
       return;
     }
 
-    alert("Registration successful!");
-    navigate("/login");
+    setBusy(true); setError("");
+    try {
+      const result = await register({ name: form.fullname, email: form.email, password: form.password, role: form.role });
+      signIn(result.user, result.token);
+      navigate("/dashboard");
+    } catch (err) { setError(err.message); } finally { setBusy(false); }
   };
 
   return (
@@ -55,7 +64,7 @@ export default function Register() {
           <div className="register-card">
             <div className="register-header">
               <h2>Create an Account</h2>
-              <p>Join Local Service Helper today</p>
+              <p>Join Fixnear today</p>
             </div>
 
             <form onSubmit={handleSubmit}>
@@ -89,6 +98,18 @@ export default function Register() {
                 required
               />
 
+              <fieldset className="role-picker">
+                <legend>I want to join as</legend>
+                <div className="role-options">
+                  <button type="button" aria-pressed={form.role === "customer"} className={form.role === "customer" ? "role-option active" : "role-option"} onClick={() => setForm((f) => ({ ...f, role: "customer" }))}>
+                    <span className="role-icon">🏠</span><span><strong>Customer</strong><small>Find and book trusted help</small></span>
+                  </button>
+                  <button type="button" aria-pressed={form.role === "provider"} className={form.role === "provider" ? "role-option active" : "role-option"} onClick={() => setForm((f) => ({ ...f, role: "provider" }))}>
+                    <span className="role-icon">🧰</span><span><strong>Service provider</strong><small>Create a profile and receive jobs</small></span>
+                  </button>
+                </div>
+              </fieldset>
+
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -114,7 +135,8 @@ export default function Register() {
                 I agree to the terms and conditions
               </label>
 
-              <button type="submit">Create Account</button>
+              {error && <p className="form-error">{error}</p>}
+              <button type="submit" disabled={busy}>{busy ? "Creating account..." : "Create Account"}</button>
             </form>
 
             <div className="register-login">

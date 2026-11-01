@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FALLBACK_IMAGE } from "../data/servicesData";
+import { api } from "../api";
+import { useAuth } from "../auth";
 
 const TIME_SLOTS = ["9:00 AM - 11:00 AM", "11:00 AM - 1:00 PM", "2:00 PM - 4:00 PM", "4:00 PM - 6:00 PM"];
 
@@ -23,16 +24,19 @@ const emptyForm = {
 export default function BookingForm({ service, selectedProfessional, onBooked }) {
   const [form, setForm] = useState(emptyForm);
   const [message, setMessage] = useState("");
+  const [busy, setBusy] = useState(false);
+  const { user, refreshSession } = useAuth();
 
   const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!selectedProfessional) {
       alert(`Please select a ${service.roleLabel} first.`);
       return;
     }
+    if (!user) { setMessage("Please log in as a customer before booking."); return; }
     const required = ["service", "name", "phone", "date", "time", "address", "problem"];
     if (required.some((field) => !form[field])) {
       alert("Please complete every booking detail.");
@@ -43,11 +47,20 @@ export default function BookingForm({ service, selectedProfessional, onBooked })
       return;
     }
 
-    setMessage(
-      `Booking request sent for ${form.service} with ${selectedProfessional.name} on ${form.date}, ${form.time}. We will contact you shortly.`
-    );
-    setForm(emptyForm);
-    onBooked();
+    setBusy(true); setMessage("");
+    try {
+      // The backend is the source of truth for the account role. Refreshing it
+      // here prevents an old browser session from attempting a customer booking
+      // with a token that belongs to a provider or administrator account.
+      const activeUser = await refreshSession();
+      if (activeUser.role !== "customer") {
+        setMessage("This signed-in account is a service provider account. Please log in with a customer account to place a booking.");
+        return;
+      }
+      await api("/bookings", { method: "POST", body: JSON.stringify({ providerId: selectedProfessional.id, serviceSlug: service.slug, date: form.date, time: form.time, address: form.address, problem: form.problem }) });
+      setMessage(`Booking request sent for ${form.service} with ${selectedProfessional.name}. View it in My dashboard.`);
+      setForm(emptyForm); onBooked();
+    } catch (err) { setMessage(err.message); } finally { setBusy(false); }
   };
 
   return (
@@ -61,13 +74,10 @@ export default function BookingForm({ service, selectedProfessional, onBooked })
           {selectedProfessional ? (
             <div className="selected-person">
               <img
-          referrerPolicy="no-referrer"
+                referrerPolicy="no-referrer"
                 src={selectedProfessional.img}
                 alt={selectedProfessional.name}
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  e.currentTarget.src = FALLBACK_IMAGE;
-                }}
+                onError={(event) => { event.currentTarget.style.background = "#16835a"; }}
               />
               <div>
                 <strong>{selectedProfessional.name}</strong>
@@ -138,8 +148,8 @@ export default function BookingForm({ service, selectedProfessional, onBooked })
             required
           />
 
-          <button className="confirm-booking" type="submit">
-            Confirm booking
+          <button className="confirm-booking" type="submit" disabled={busy}>
+            {busy ? "Sending..." : "Confirm booking"}
           </button>
         </form>
 

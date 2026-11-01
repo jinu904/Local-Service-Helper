@@ -1,81 +1,35 @@
-# Local Service Helper — React
+# Local Service Helper
 
-A React + Vite conversion of the original multi-page static site.
+This project contains the React customer website and its no-cost local backend.
 
-## Just open it in a browser (no install)
+## Run it locally
 
-Double-click **`standalone/index.html`**. It is a pre-built bundle and works straight from disk (`file://`).
+1. Install dependencies with `npm install`.
+2. Start the backend in one terminal: `npm run server`.
+3. Start the website in another terminal: `npm run dev`.
 
-## Develop with Vite
+The API runs at `http://localhost:4000`. It creates its SQLite database automatically in `server/data/` and seeds service-provider listings for each service category.
 
-```bash
-npm install
-npm run dev
-```
+## Smart Match machine-learning model
 
-Then open the printed local URL (usually http://localhost:5173).
+When the backend starts, it trains a local **logistic-regression** provider-suitability classifier from the approved provider records in SQLite. The model uses normalised rating, review confidence, and years of experience to estimate provider suitability. Smart Match blends that trained prediction (45%) with live customer-issue and specialty keyword relevance (55%), then returns the top three providers.
 
-## Structure
+The generated model artifact is saved at `server/data/provider-suitability-model.json`. It is retrained after a customer submits a completed-service review, so updated provider performance is used by later recommendations. The dataset in this project is a demo dataset; it is appropriate for demonstrating the pipeline but not for claiming production-grade evaluation results.
 
-```
-src/
-  main.jsx              # entry point, mounts <App/> with BrowserRouter
-  App.jsx               # routes
-  pages/
-    Home.jsx            # hero slider, services, how it works, about, contact
-    Login.jsx
-    Register.jsx
-    ServicePage.jsx      # generic page used for all 6 service categories
-  components/
-    Header.jsx / Footer.jsx
-    HeroSlider.jsx        # ported from script.js hero-slider logic
-    ServiceIcon.jsx        # svg icons for the services grid
-    ProfessionalCard.jsx   # a single professional/technician card
-    BookingForm.jsx        # sidebar booking form used on every service page
-  data/
-    servicesData.js       # all copy + professionals + reviews per service
-    homeData.js            # hero slides / services grid / how-it-works / about
-  styles/
-    style.css             # original global stylesheet (unchanged)
-    service.css            # original service-page stylesheet (unchanged)
-```
+## Accounts and approval
 
-## Routes
+- Customers can register, view approved providers, and create bookings.
+- Service providers can register and submit a profile. New or edited provider profiles are marked **pending**.
+- An admin approves or rejects provider profiles through the admin API.
 
-Routing is hash-based (`#/services/plumbing`) via `src/router.jsx`, so no server config is needed.
+For local development, the seeded admin login is configured in `.env.example` (`admin@localservicehelper.test` / `ChangeMe123!`). Copy it to `.env` and change the secret and password before any real deployment.
 
-| Path                         | Page                     |
-|-------------------------------|--------------------------|
-| `/`                            | Home                     |
-| `/login`                       | Login                    |
-| `/register`                    | Register                 |
-| `/services/plumbing`           | Plumbing                 |
-| `/services/electrical`         | Electrical               |
-| `/services/cleaning`           | Home Cleaning            |
-| `/services/carpentry`          | Carpentry                |
-| `/services/appliance-repair`   | Appliance Repair         |
-| `/services/painting`           | Painting                 |
+## Main API routes
 
-## Notes on the conversion
-
-- The six near-identical service pages (`plumbing.html`, `electrical.html`, etc.) were
-  merged into **one** `ServicePage.jsx` component driven by `data/servicesData.js` —
-  add a new service by adding an entry there, no new component needed.
-- All interactivity (professional selection, toggling reviews, booking form
-  validation, login/register validation, the hero slider, scroll-reveal
-  animations) was ported from `script.js` / `service.js` into React state and
-  `useEffect` hooks — no jQuery-style DOM queries remain.
-- Your original `index.html` only contained the Vite entry shell (no homepage
-  markup was supplied), so the homepage sections (hero slider content, services
-  grid, "How It Works", "About", "Contact") were rebuilt to match the classes
-  already defined in `style.css` (`.hero`, `.services`, `.how-it-works`,
-  `.about`, `.contact`, etc.). Feel free to edit the copy in `data/homeData.js`.
-- The footer markup differed slightly between pages in the original site
-  (service pages used a two-column flex footer, login/register used a plain
-  one). This conversion standardizes on the two-column version everywhere via
-  one shared `Footer.jsx`.
-- Some professional photo URLs in the original files point at third-party
-  sites (Shutterstock previews, Vecteezy thumbnails, Google's cached image
-  proxy, etc.) that may not stay reachable long-term — an `onError` fallback
-  swaps in an Unsplash placeholder if any image fails to load, matching the
-  original `service.js` behavior.
+- `POST /api/auth/register`, `POST /api/auth/login`
+- `GET /api/providers`, `GET /api/providers/:id`
+- `GET` / `PUT /api/providers/me/profile`
+- `POST /api/bookings`, `GET /api/bookings/me`
+- `POST /api/recommendations`, `GET /api/ml/model-info`
+- `GET /api/admin/providers?status=pending`
+- `PATCH /api/admin/providers/:id/status`

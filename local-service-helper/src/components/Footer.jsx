@@ -5,8 +5,8 @@ export default function Footer() {
     <footer>
       <div className="footer-content">
         <div>
-          <h3>Local Service Helper</h3>
-          <p>Making local services easier to find and book.</p>
+          <h3><span className="brand-mark">⌂</span> Fixnear</h3>
+          <p>Trusted help for every corner of your home.</p>
         </div>
         <div className="footer-links">
           <Link to="/">Home</Link>
@@ -18,3 +18,4 @@ export default function Footer() {
     </footer>
   );
 }
+

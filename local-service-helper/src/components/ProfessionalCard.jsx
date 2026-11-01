@@ -1,5 +1,3 @@
-import { FALLBACK_IMAGE } from "../data/servicesData";
-
 export default function ProfessionalCard({
   professional,
   roleLabel,
@@ -15,10 +13,6 @@ export default function ProfessionalCard({
           referrerPolicy="no-referrer"
           src={professional.img}
           alt={professional.name}
-          onError={(e) => {
-            e.currentTarget.onerror = null;
-            e.currentTarget.src = FALLBACK_IMAGE;
-          }}
         />
       </div>
       <div className="professional-info">
