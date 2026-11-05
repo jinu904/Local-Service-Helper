@@ -122,6 +122,7 @@ export function initializeDatabase() {
       service_slug TEXT NOT NULL,
       requested_date TEXT NOT NULL,
       requested_time TEXT NOT NULL,
+      customer_phone TEXT NOT NULL DEFAULT '',
       address TEXT NOT NULL,
       problem TEXT NOT NULL,
       status TEXT NOT NULL DEFAULT 'requested' CHECK(status IN ('requested', 'accepted', 'declined', 'completed', 'cancelled')),
@@ -164,6 +165,7 @@ export function initializeDatabase() {
     );
   `);
   const bookingColumns = database.prepare("PRAGMA table_info(bookings)").all().map((column) => column.name);
+  if (!bookingColumns.includes("customer_phone")) database.exec("ALTER TABLE bookings ADD COLUMN customer_phone TEXT NOT NULL DEFAULT ''");
   if (!bookingColumns.includes("final_amount")) database.exec("ALTER TABLE bookings ADD COLUMN final_amount REAL");
   if (!bookingColumns.includes("completed_at")) database.exec("ALTER TABLE bookings ADD COLUMN completed_at TEXT");
   const profileColumns = database.prepare("PRAGMA table_info(provider_profiles)").all().map((column) => column.name);

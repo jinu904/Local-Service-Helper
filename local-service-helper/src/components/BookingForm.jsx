@@ -57,7 +57,7 @@ export default function BookingForm({ service, selectedProfessional, onBooked })
         setMessage("This signed-in account is a service provider account. Please log in with a customer account to place a booking.");
         return;
       }
-      await api("/bookings", { method: "POST", body: JSON.stringify({ providerId: selectedProfessional.id, serviceSlug: service.slug, date: form.date, time: form.time, address: form.address, problem: form.problem }) });
+      await api("/bookings", { method: "POST", body: JSON.stringify({ providerId: selectedProfessional.id, serviceSlug: service.slug, date: form.date, time: form.time, phone: form.phone, address: form.address, problem: form.problem }) });
       setMessage(`Booking request sent for ${form.service} with ${selectedProfessional.name}. View it in My dashboard.`);
       setForm(emptyForm); onBooked();
     } catch (err) { setMessage(err.message); } finally { setBusy(false); }

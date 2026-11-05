@@ -1241,3 +1241,5 @@ footer { background-color: #123b5d; color: white; margin-top: 80px; animation: f
 /* Completed-service revenue breakdown */
 .commission-summary { display: grid; gap: 4px; margin-top: 12px; padding: 10px 12px; color: #40506b; background: #f1f8f4; border: 1px solid #d4eddf; border-radius: 9px; font-size: .82rem; }
 .commission-summary strong { color: #16835a; }
+.booking-request-details { display: grid; gap: 5px; margin: 11px 0; padding: 11px 13px; color: #40506b; background: #f6fbff; border: 1px solid #d7e8f5; border-radius: 9px; font-size: .86rem; }.booking-request-details p { margin: 0; }.booking-request-details b { color: #123b5d; }
+.live-booking-status { display: flex; align-items: center; gap: 7px; margin-top: 12px; color: #276c4c; font-size: .78rem; font-weight: 700; }.live-booking-status i { width: 8px; height: 8px; background: #20b26b; border-radius: 50%; box-shadow: 0 0 0 4px rgba(32,178,107,.14); }

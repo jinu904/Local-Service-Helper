@@ -149,10 +149,10 @@ const server = http.createServer(async (req, res) => {
     }
     if (method === "POST" && path === "/api/bookings") {
       const user = requireUser(req, res, ["customer"]); if (!user) return;
-      const { providerId: id, serviceSlug, date, time, address, problem } = body;
+      const { providerId: id, serviceSlug, date, time, phone, address, problem } = body;
       const provider = database.prepare("SELECT id FROM provider_profiles WHERE id=? AND approval_status='approved'").get(id);
-      if (!provider || !services.includes(serviceSlug) || !date || !time || !address?.trim() || !problem?.trim()) return send(res, 400, { message: "Please provide complete, valid booking details." });
-      const row = database.prepare("INSERT INTO bookings (customer_id,provider_id,service_slug,requested_date,requested_time,address,problem) VALUES (?,?,?,?,?,?,?)").run(user.id, id, serviceSlug, date, time, address.trim(), problem.trim());
+      if (!provider || !services.includes(serviceSlug) || !date || !time || !/^\d{10}$/.test(phone || "") || !address?.trim() || !problem?.trim()) return send(res, 400, { message: "Please provide complete, valid booking details." });
+      const row = database.prepare("INSERT INTO bookings (customer_id,provider_id,service_slug,requested_date,requested_time,customer_phone,address,problem) VALUES (?,?,?,?,?,?,?,?)").run(user.id, id, serviceSlug, date, time, phone, address.trim(), problem.trim());
       return send(res, 201, { id: Number(row.lastInsertRowid), message: "Booking request sent." });
     }
     if (method === "GET" && path === "/api/bookings/me") {
