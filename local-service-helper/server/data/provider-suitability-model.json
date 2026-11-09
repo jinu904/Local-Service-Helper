@@ -1,7 +1,7 @@
 {
   "modelType": "Logistic Regression",
   "modelVersion": "1.0",
-  "trainedAt": "2026-11-03T08:09:07.567Z",
+  "trainedAt": "2026-11-09T06:21:11.242Z",
   "featureNames": [
     "normalised_rating",
     "review_confidence",
