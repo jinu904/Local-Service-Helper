@@ -13,7 +13,7 @@ const secret = process.env.JWT_SECRET || "local-development-secret-change-before
 const services = ["plumbing", "electrical", "cleaning", "carpentry", "appliance-repair", "painting"];
 
 function send(res, status, data) {
-  res.writeHead(status, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "http://localhost:5173" });
+  res.writeHead(status, { "Content-Type": "application/json", "Access-Control-Allow-Origin": process.env.FRONTEND_ORIGIN || "http://localhost:5173" });
   res.end(JSON.stringify(data));
 }
 function makeToken(user) {
@@ -86,7 +86,7 @@ function recommendProviders(serviceSlug, problem) {
 }
 
 const server = http.createServer(async (req, res) => {
-  if (req.method === "OPTIONS") { res.writeHead(204, { "Access-Control-Allow-Origin": "http://localhost:5173", "Access-Control-Allow-Headers": "Content-Type, Authorization", "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, OPTIONS" }); return res.end(); }
+  if (req.method === "OPTIONS") { res.writeHead(204, { "Access-Control-Allow-Origin": process.env.FRONTEND_ORIGIN || "http://localhost:5173", "Access-Control-Allow-Headers": "Content-Type, Authorization", "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, OPTIONS" }); return res.end(); }
   const url = new URL(req.url, `http://${req.headers.host}`), path = url.pathname, method = req.method;
   const body = ["POST", "PUT", "PATCH"].includes(method) ? await readBody(req) : {};
   if (body === null) return send(res, 400, { message: "Request body must be valid JSON." });
